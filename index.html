@@ -43,7 +43,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 8rem 1rem;
+            /* MODIFIED: Padding is now applied via Tailwind utilities for responsiveness */
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -219,6 +219,12 @@
         #search-controls.active #search-toggle {
             color: var(--text-secondary);
         }
+        /* ADDED: Media query for better responsiveness on small screens */
+        @media (max-width: 360px) {
+            #search-controls.active #indicator-search {
+                width: 220px; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -228,7 +234,8 @@
         <span class="block w-6 h-0.5 bg-white"></span>
     </button>
 
-    <nav id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-dark transform -translate-x-full transition-transform duration-300 ease-in-out z-50 p-6 pt-20">
+    <!-- MODIFIED: Increased z-index from z-50 to z-[70] to ensure it covers the menu button -->
+    <nav id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-dark transform -translate-x-full transition-transform duration-300 ease-in-out z-[70] p-6 pt-20">
         <h2 class="text-3xl font-bold text-gold mb-10" style="font-family: 'Cormorant Garamond', serif;">Satoshi's Codex</h2>
         <ul class="space-y-4">
             <li><a href="#hero" class="sidebar-link"><i class="fas fa-home w-6 mr-2"></i>Home</a></li>
@@ -238,11 +245,15 @@
     </nav>
     
     <div class="price-banner py-2 sticky top-0 z-40"><div class="banner-track" id="banner-track"></div></div>
-    <section class="content-section hero-section" id="hero"><div class="text-center max-w-4xl mx-auto"><h1 class="hero-title text-8xl md:text-9xl lg:text-[10rem] font-black mb-6">Satoshi's Codex</h1><div class="mt-16 flex justify-center"><div class="scroll-arrow animate-bounce text-gold" onclick="scrollToSection('x-feed')"><i class="fas fa-chevron-down text-5xl"></i></div></div></div></section>
     
-    <section class="content-section" id="x-feed"><div class="w-full max-w-7xl mx-auto"><h2 class="section-title text-6xl md:text-7xl text-center mb-8">X Feed</h2><div class="carousel-container"><button id="carousel-nav-left" class="carousel-nav-btn"><i class="fas fa-chevron-left"></i></button><div class="carousel-wrapper"><div class="carousel-track" id="carousel-track"></div></div><button id="carousel-nav-right" class="carousel-nav-btn"><i class="fas fa-chevron-right"></i></button></div><div id="x-feed-container" class="mt-8 w-full max-w-lg mx-auto"></div></div></section>
+    <!-- MODIFIED: Added responsive padding and font-size classes -->
+    <section class="content-section hero-section px-4 py-20 md:py-28 lg:py-32" id="hero"><div class="text-center max-w-4xl mx-auto"><h1 class="hero-title text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black mb-6">Satoshi's Codex</h1><div class="mt-16 flex justify-center"><div class="scroll-arrow animate-bounce text-gold" onclick="scrollToSection('x-feed')"><i class="fas fa-chevron-down text-5xl"></i></div></div></div></section>
     
-    <section class="content-section" id="indicators"><div class="w-full max-w-7xl mx-auto relative">
+    <!-- MODIFIED: Added responsive padding classes -->
+    <section class="content-section px-4 py-20 md:py-28 lg:py-32" id="x-feed"><div class="w-full max-w-7xl mx-auto"><h2 class="section-title text-6xl md:text-7xl text-center mb-8">X Feed</h2><div class="carousel-container"><button id="carousel-nav-left" class="carousel-nav-btn"><i class="fas fa-chevron-left"></i></button><div class="carousel-wrapper"><div class="carousel-track" id="carousel-track"></div></div><button id="carousel-nav-right" class="carousel-nav-btn"><i class="fas fa-chevron-right"></i></button></div><div id="x-feed-container" class="mt-8 w-full max-w-lg mx-auto"></div></div></section>
+    
+    <!-- MODIFIED: Added responsive padding classes -->
+    <section class="content-section px-4 py-20 md:py-28 lg:py-32" id="indicators"><div class="w-full max-w-7xl mx-auto relative">
         <h2 class="section-title text-6xl md:text-7xl text-center mb-8">Trading Indicators</h2>
         
         <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
@@ -263,7 +274,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="indicators-grid"></div>
     </div></section>
     
-    <div id="add-choice-modal" class="modal"><div class="modal-content-container p-4"><div class="modal-content relative"><button type="button" onclick="closeModal('add-choice-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i class="fas fa-times fa-lg"></i></button><h3 class="text-xl font-bold text-gold mb-6 text-center">What would you like to add?</h3><div class="flex justify-around gap-4"><button id="add-account-choice-btn" class="btn btn-primary w-full"><i class="fa-brands fa-x-twitter"></i> Account</button><button id="add-indicator-choice-btn" class="btn btn-secondary w-full"><i class="fas fa-chart-line"></i> Indicator</button></div></div></div></div>
+    <div id="add-choice-modal" class="modal"><div class="modal-content-container p-4"><div class="modal-content relative"><button type="button" onclick="closeModal('add-choice-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i class="fas fa-times fa-lg"></i></button><h3 class="text-xl font-bold text-gold mb-6 text-center">What would you like to add?</h3><!-- MODIFIED: Changed to flex-col on small screens -->
+<div class="flex flex-col sm:flex-row justify-around gap-4"><button id="add-account-choice-btn" class="btn btn-primary w-full"><i class="fa-brands fa-x-twitter"></i> Account</button><button id="add-indicator-choice-btn" class="btn btn-secondary w-full"><i class="fas fa-chart-line"></i> Indicator</button></div></div></div></div>
     <div id="add-account-modal" class="modal"><div class="modal-content-container p-4"><form id="add-account-form" class="modal-content relative"><button type="button" onclick="closeModal('add-account-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i class="fas fa-times fa-lg"></i></button><h3 class="text-xl font-bold text-gold mb-4">Add X Account</h3><div class="form-group"><label for="account-name" class="form-label">Account Name</label><input type="text" id="account-name" class="form-input" placeholder="e.g., Vitalik Buterin" required></div><div class="form-group"><label for="account-handle" class="form-label">X Handle (without @)</label><input type="text" id="account-handle" class="form-input" placeholder="e.g., VitalikButerin" required></div><button type="submit" class="btn btn-primary w-full justify-center">Add Account</button></form></div></div>
     
     <div id="add-indicator-modal" class="modal"><div class="modal-content-container p-4"><form id="add-indicator-form" class="modal-content relative"><button type="button" onclick="closeModal('add-indicator-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20"><i class="fas fa-times fa-lg"></i></button><h3 class="text-xl font-bold text-gold mb-4">Add Custom Indicator</h3><div class="form-group"><label for="indicator-name" class="form-label">Indicator Name</label><input type="text" id="indicator-name" class="form-input" placeholder="e.g., My Custom Index" required></div><div class="form-group"><label for="indicator-url" class="form-label">External URL</label><input type="url" id="indicator-url" class="form-input" placeholder="https://example.com/my-chart" required></div><div class="form-group"><label for="indicator-category" class="form-label">Category</label><input type="text" id="indicator-category" class="form-input" placeholder="e.g., on-chain" required></div><div class="form-group"><label for="indicator-desc" class="form-label">Description</label><textarea id="indicator-desc" class="form-input" rows="2" placeholder="A brief description of the indicator."></textarea></div><div class="form-group"><label for="indicator-signal" class="form-label">Trading Signal (Optional)</label><input type="text" id="indicator-signal" class="form-input" placeholder="e.g., Buy below green, Sell above red"></div><button type="submit" class="btn btn-primary w-full justify-center">Add Indicator</button></form></div></div>
@@ -548,4 +560,4 @@
     </script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
-</html>```
+</html>
